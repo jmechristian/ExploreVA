@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useContext, useReducer } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import Context from './context';
+import reducer from './reducer';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const Root = () => {
+  const initialState = useContext(Context);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+  return (
+    <Router>
+      <Context.Provider value={{ state, dispatch }}>
+        <Route exact path="/" component={App} />
+      </Context.Provider>
+    </Router>
+  );
+};
+
+ReactDOM.render(<Root />, document.getElementById('root'));
