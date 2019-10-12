@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from './Header';
 
-// import AddContent from './Blog/addContent';
+import AddContent from './Blog/addContent';
 import NoContent from './Blog/noContent';
 // import DisplayContent from './Blog/displayContent';
+import PinContext from '../PinContext';
 
 const Blog = () => {
+  const { state } = useContext(PinContext);
+  const { draft } = state;
+
   let blogContent = <NoContent />;
+
+  if (draft) {
+    blogContent = <AddContent />;
+  }
 
   return (
     <div className="flex flex-col w-full md:w-1/3">

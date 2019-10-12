@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWalking } from '@fortawesome/free-solid-svg-icons';
+import { faWalking, faHome } from '@fortawesome/free-solid-svg-icons';
+import PinContext from '../PinContext';
 
 const INITIAL_VIEWPORT = {
   latitude: 37.7577,
   longitude: -122.4376,
-  zoom: 8
+  zoom: 9
 };
 
 const Map = () => {
+  const { state, dispatch } = useContext(PinContext);
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
   const [userPosition, setUserPosition] = useState(null);
 
@@ -27,6 +29,18 @@ const Map = () => {
     }
   };
 
+  const handleMapClick = ({ lngLat, leftButton }) => {
+    if (!leftButton) return;
+    if (!state.draft) {
+      dispatch({ type: 'CREATE_DRAFT' });
+    }
+    const [longitude, latitude] = lngLat;
+    dispatch({
+      type: 'UPDATE_DRAFT_LOCATION',
+      payload: { longitude, latitude }
+    });
+  };
+
   return (
     <div className="w-full md:w-2/3 md:h-screen">
       <ReactMapGL
@@ -35,6 +49,7 @@ const Map = () => {
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxApiAccessToken="pk.eyJ1Ijoiam1lY2hyaXN0aWFuIiwiYSI6ImNrMWljamw4bDBqcGEzbm55Ynd2ZXl2cjgifQ.Ri325k-o8GPgudwW6o2NHw"
         onViewportChange={newViewport => setViewport(newViewport)}
+        onClick={handleMapClick}
         {...viewport}
       >
         {userPosition && (
@@ -44,7 +59,17 @@ const Map = () => {
             offsetLeft={-19}
             offsetTop={-37}
           >
-            <FontAwesomeIcon icon={faWalking} size="2x" />
+            <FontAwesomeIcon icon={faHome} size="lg" />
+          </Marker>
+        )}
+        {state.draft && (
+          <Marker
+            latitude={state.draft.latitude}
+            longitude={state.draft.longitude}
+            offsetLeft={-19}
+            offsetTop={-37}
+          >
+            <FontAwesomeIcon icon={faWalking} size="lg" />
           </Marker>
         )}
       </ReactMapGL>
