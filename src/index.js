@@ -1,22 +1,25 @@
-import React, { useContext, useReducer } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './index.css';
 import App from './App';
-import Context from './context';
-import reducer from './reducer';
+import Login from './components/Login';
+import PrivateRoute from './PrivateRoute';
+import { AuthProvider } from './Auth';
 
 const Root = () => {
-  const initialState = useContext(Context);
-  const [state, dispatch] = useReducer(reducer, initialState);
-
   return (
-    <Router>
-      <Context.Provider value={{ state, dispatch }}>
-        <Route exact path="/" component={App} />
-      </Context.Provider>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <PrivateRoute exact path="/" component={App} />
+        </Switch>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 };
 

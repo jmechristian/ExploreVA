@@ -28,7 +28,7 @@ const Map = () => {
   };
 
   return (
-    <div className="w-full md:w-3/5 md:h-screen">
+    <div className="w-full md:w-2/3 md:h-screen">
       <ReactMapGL
         width="100%"
         height="100vh"
