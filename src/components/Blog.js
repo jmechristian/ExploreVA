@@ -12,23 +12,20 @@ const Blog = () => {
   const { currentUser } = useContext(AuthContext);
   const { draft, currentPin } = state;
 
-  let BlogContent = <NoContent />;
-
-  if (draft && !currentPin) {
-    BlogContent = AddContent;
-  } else if (!draft && !currentPin) {
-    BlogContent = NoContent;
+  let BlogContent;
+  if (!draft && !currentPin) {
+    BlogContent = <NoContent />;
+  } else if (draft && !currentPin) {
+    BlogContent = <AddContent />;
   } else if (!draft && currentPin) {
-    BlogContent = DisplayContent;
+    BlogContent = <DisplayContent user={currentUser} />;
   }
 
   return (
     <div className="flex flex-col w-full md:w-1/3">
       <Header />
       <div className="flex w-full bg-indigo-700 md:h-screen">
-        <div className="text-white self-center flex-1">
-          <BlogContent user={currentUser} />
-        </div>
+        <div className="text-white self-center flex-1">{BlogContent}</div>
       </div>
     </div>
   );

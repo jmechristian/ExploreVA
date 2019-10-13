@@ -6,7 +6,8 @@ export default function reducer(state, action) {
         draft: {
           latitude: 0,
           longitude: 0
-        }
+        },
+        currentPin: null
       };
     case 'DELETE_DRAFT':
       return {
@@ -22,6 +23,12 @@ export default function reducer(state, action) {
       return {
         ...state,
         pins: action.payload
+      };
+    case 'CURRENT_PIN':
+      return {
+        ...state,
+        currentPin: action.payload,
+        draft: null
       };
     default:
       return state;

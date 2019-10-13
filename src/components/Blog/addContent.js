@@ -34,8 +34,9 @@ const AddContent = props => {
     return res.data.url;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async event => {
     try {
+      event.preventDefault();
       setSubmitting(true);
       const url = await handleImageUpload();
       const { latitude, longitude } = state.draft;
@@ -101,6 +102,7 @@ const AddContent = props => {
               accept="image/*"
               id="image"
               onChange={e => setImage(e.target.files[0])}
+              multiple
             />
           </div>
           <div>

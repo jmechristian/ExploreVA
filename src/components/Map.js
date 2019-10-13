@@ -7,8 +7,8 @@ import { AuthContext } from '../Auth';
 import { db } from '../firebase';
 
 const INITIAL_VIEWPORT = {
-  latitude: 37.7577,
-  longitude: -122.4376,
+  latitude: 38.80401963556372,
+  longitude: -77.68045416673901,
   zoom: 8
 };
 
@@ -68,12 +68,16 @@ const Map = () => {
     });
   };
 
+  const handlePinClick = pin => {
+    dispatch({ type: 'CURRENT_PIN', payload: pin });
+  };
+
   return (
     <div className="w-full md:w-2/3 md:h-screen">
       <ReactMapGL
         width="100%"
         height="100vh"
-        mapStyle="mapbox://styles/mapbox/streets-v9"
+        mapStyle="mapbox://styles/jmechristian/ck1ogvt4m1ses1brt5xfloncr"
         mapboxApiAccessToken="pk.eyJ1Ijoiam1lY2hyaXN0aWFuIiwiYSI6ImNrMWljamw4bDBqcGEzbm55Ynd2ZXl2cjgifQ.Ri325k-o8GPgudwW6o2NHw"
         onViewportChange={newViewport => setViewport(newViewport)}
         onClick={handleMapClick}
@@ -107,7 +111,11 @@ const Map = () => {
             offsetLeft={-19}
             offsetTop={-37}
           >
-            <FontAwesomeIcon icon={faWalking} size="lg" />
+            <FontAwesomeIcon
+              icon={faWalking}
+              size="lg"
+              onClick={() => handlePinClick(pin)}
+            />
           </Marker>
         ))}
       </ReactMapGL>
