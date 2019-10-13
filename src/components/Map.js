@@ -113,8 +113,9 @@ const Map = () => {
           >
             <FontAwesomeIcon
               icon={faWalking}
-              size="lg"
+              size="2x"
               onClick={() => handlePinClick(pin)}
+              className="text-pink-600"
             />
           </Marker>
         ))}
