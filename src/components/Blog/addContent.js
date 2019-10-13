@@ -11,14 +11,16 @@ import { db } from '../../firebase';
 const AddContent = props => {
   const { state, dispatch } = useContext(PinContext);
   const [title, setTitle] = useState('');
+  const [location, setLocation] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   const handleDeleteDraft = () => {
     setTitle('');
-    setImage('');
+    setLocation('');
     setContent('');
+    setImage('');
     dispatch({ type: 'DELETE_DRAFT' });
   };
 
@@ -40,7 +42,14 @@ const AddContent = props => {
       setSubmitting(true);
       const url = await handleImageUpload();
       const { latitude, longitude } = state.draft;
-      const pinData = { title, image: url, content, latitude, longitude };
+      const pinData = {
+        title,
+        location,
+        image: url,
+        content,
+        latitude,
+        longitude
+      };
       await db
         .collection('users')
         .doc(`${props.user.uid}`)
@@ -65,9 +74,25 @@ const AddContent = props => {
         <div className="flex flex-col justify-left mb-6 w-3/4">
           <label
             className="block text-indigo-300 text-sm font-bold mb-2 uppercase"
-            htmlFor="username"
+            htmlFor="location"
           >
             Where Did We Go?
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="location"
+            type="text"
+            placeholder="Enter Location"
+            value={location}
+            onChange={e => setLocation(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col justify-left mb-6 w-3/4">
+          <label
+            className="block text-indigo-300 text-sm font-bold mb-2 uppercase"
+            htmlFor="title"
+          >
+            Why Were We There?
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -109,7 +134,11 @@ const AddContent = props => {
             <button
               type="submit"
               disabled={
-                !title.trim() || !content.trim() || !image || submitting
+                !location.trim() ||
+                !title.trim() ||
+                !content.trim() ||
+                !image ||
+                submitting
               }
               onClick={handleSubmit}
             >

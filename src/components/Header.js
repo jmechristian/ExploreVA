@@ -14,10 +14,17 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between text-white p-6 w-full bg-blue-400">
-      <div>Hello, {currentUser.displayName}</div>
+    <div className="flex justify-between items-center py-6 px-8 w-full bg-blue-400 ">
+      <div className="text-white text-xs font-bold uppercase">
+        Hello, {currentUser.displayName}
+      </div>
       <div>
-        <button onClick={signOutHandler}>Sign Out</button>
+        <button
+          onClick={signOutHandler}
+          className="text-white text-xs font-bold uppercase"
+        >
+          Sign Out
+        </button>
       </div>
     </div>
   );

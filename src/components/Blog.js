@@ -16,7 +16,7 @@ const Blog = () => {
   if (!draft && !currentPin) {
     BlogContent = <NoContent />;
   } else if (draft && !currentPin) {
-    BlogContent = <AddContent />;
+    BlogContent = <AddContent user={currentUser} />;
   } else if (!draft && currentPin) {
     BlogContent = <DisplayContent user={currentUser} />;
   }
@@ -25,7 +25,9 @@ const Blog = () => {
     <div className="flex flex-col w-full md:w-1/3">
       <Header />
       <div className="flex w-full bg-indigo-700 md:h-screen">
-        <div className="text-white self-center flex-1">{BlogContent}</div>
+        <div className="text-white self-center -mt-16 flex-1">
+          {BlogContent}
+        </div>
       </div>
     </div>
   );

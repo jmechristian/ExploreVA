@@ -1,14 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWalking, faHome } from '@fortawesome/free-solid-svg-icons';
+import {
+  faWalking,
+  faHome,
+  faThumbtack,
+  faMapMarkerAlt
+} from '@fortawesome/free-solid-svg-icons';
 import PinContext from '../PinContext';
 import { AuthContext } from '../Auth';
 import { db } from '../firebase';
 
 const INITIAL_VIEWPORT = {
-  latitude: 38.80401963556372,
-  longitude: -77.68045416673901,
+  latitude: 38.8418388,
+  longitude: -77.4340297,
+  bearing: 4.539007092198582,
+  pitch: 46.28088218000663,
   zoom: 8
 };
 
@@ -31,10 +38,18 @@ const Map = () => {
     return ref.onSnapshot(querySnapshot => {
       const pins = [];
       querySnapshot.forEach(pin => {
-        const { content, image, latitude, longitude, title } = pin.data();
+        const {
+          content,
+          location,
+          image,
+          latitude,
+          longitude,
+          title
+        } = pin.data();
         pins.push({
           id: pin.id,
           content,
+          location,
           image,
           latitude,
           longitude,
@@ -100,7 +115,7 @@ const Map = () => {
             offsetLeft={-19}
             offsetTop={-37}
           >
-            <FontAwesomeIcon icon={faWalking} size="lg" />
+            <FontAwesomeIcon icon={faThumbtack} size="lg" />
           </Marker>
         )}
         {state.pins.map(pin => (
@@ -112,7 +127,7 @@ const Map = () => {
             offsetTop={-37}
           >
             <FontAwesomeIcon
-              icon={faWalking}
+              icon={faMapMarkerAlt}
               size="2x"
               onClick={() => handlePinClick(pin)}
               className="text-pink-600"

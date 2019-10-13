@@ -8,7 +8,7 @@ const DisplayContent = props => {
     <div>
       <div className="mb-8 flex flex-col items-center">
         <div className="flex justify-left w-3/4 text-4xl font-extrabold leading-tight">
-          {currentPin.title}
+          {currentPin.location}
         </div>
       </div>
       <div className="flex flex-col items-center">
