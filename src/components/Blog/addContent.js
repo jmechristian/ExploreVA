@@ -2,18 +2,25 @@ import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import {
-  faImage,
   faCheckCircle,
   faTimesCircle
 } from '@fortawesome/free-solid-svg-icons';
 import PinContext from '../../PinContext';
+import { db } from '../../firebase';
 
-const AddContent = () => {
+const AddContent = props => {
   const { state, dispatch } = useContext(PinContext);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState('');
   const [submitting, setSubmitting] = useState(false);
+
+  const handleDeleteDraft = () => {
+    setTitle('');
+    setImage('');
+    setContent('');
+    dispatch({ type: 'DELETE_DRAFT' });
+  };
 
   const handleImageUpload = async () => {
     const data = new FormData();
@@ -27,11 +34,30 @@ const AddContent = () => {
     return res.data.url;
   };
 
+  const handleSubmit = async () => {
+    try {
+      setSubmitting(true);
+      const url = await handleImageUpload();
+      const { latitude, longitude } = state.draft;
+      const pinData = { title, image: url, content, latitude, longitude };
+      await db
+        .collection('users')
+        .doc(`${props.user.uid}`)
+        .collection('pins')
+        .doc()
+        .set(pinData);
+      console.log(pinData);
+      handleDeleteDraft();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div>
       <div className="mb-10 flex justify-center">
         <div className="text-5xl font-extrabold text-left w-3/4 leading-tight">
-          We Went and Did Something!
+          We Went and Did Things!
         </div>
       </div>
       <form className="flex flex-col items-center">
@@ -69,27 +95,25 @@ const AddContent = () => {
           />
         </div>
         <div className="flex justify-between mb-6 w-3/4">
-          <div>
+          <div className="w-1/2">
             <input
               type="file"
               accept="image/*"
               id="image"
-              onChange={e => setImage(e.target(e.target.files[0]))}
+              onChange={e => setImage(e.target.files[0])}
             />
-            <label htmlFor="image">
-              <button>
-                <FontAwesomeIcon icon={faImage} size="lg" />
-                <span className="text-indigo-300 text-sm font-bold mb-2 uppercase ml-2">
-                  Add Images
-                </span>
-              </button>
-            </label>
           </div>
           <div>
-            <button>
+            <button
+              type="submit"
+              disabled={
+                !title.trim() || !content.trim() || !image || submitting
+              }
+              onClick={handleSubmit}
+            >
               <FontAwesomeIcon icon={faCheckCircle} size="lg" />
             </button>
-            <button className="ml-4">
+            <button className="ml-4" onClick={handleDeleteDraft}>
               <FontAwesomeIcon icon={faTimesCircle} size="lg" />
             </button>
           </div>

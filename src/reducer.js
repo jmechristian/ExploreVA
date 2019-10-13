@@ -8,10 +8,20 @@ export default function reducer(state, action) {
           longitude: 0
         }
       };
+    case 'DELETE_DRAFT':
+      return {
+        ...state,
+        draft: null
+      };
     case 'UPDATE_DRAFT_LOCATION':
       return {
         ...state,
         draft: action.payload
+      };
+    case 'SET_PINS':
+      return {
+        ...state,
+        pins: action.payload
       };
     default:
       return state;

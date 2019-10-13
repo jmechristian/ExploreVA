@@ -31,22 +31,22 @@ const DisplayContent = () => {
         </div>
         <div className="flex flex-wrap justify-between w-3/4">
           <div className="mb-4">
-            <img src="https://via.placeholder.com/140x100" />
+            <img src="https://via.placeholder.com/140x100" alt="mom" />
           </div>
           <div>
-            <img src="https://via.placeholder.com/140x100" />
+            <img src="https://via.placeholder.com/140x100" alt="image2" />
           </div>
           <div>
-            <img src="https://via.placeholder.com/140x100" />
+            <img src="https://via.placeholder.com/140x100" alt="image3" />
           </div>
           <div>
-            <img src="https://via.placeholder.com/140x100" />
+            <img src="https://via.placeholder.com/140x100" alt="image4" />
           </div>
           <div>
-            <img src="https://via.placeholder.com/140x100" />
+            <img src="https://via.placeholder.com/140x100" alt="image6" />
           </div>
           <div>
-            <img src="https://via.placeholder.com/140x100" />
+            <img src="https://via.placeholder.com/140x100" alt="image5" />
           </div>
         </div>
       </div>
