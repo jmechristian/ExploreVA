@@ -5,20 +5,23 @@ import AddContent from './Blog/addContent';
 import NoContent from './Blog/noContent';
 import DisplayContent from './Blog/displayContent';
 import PinContext from '../PinContext';
+import EditContent from './Blog/editContent';
 import { AuthContext } from '../Auth';
 
 const Blog = () => {
   const { state } = useContext(PinContext);
   const { currentUser } = useContext(AuthContext);
-  const { draft, currentPin } = state;
+  const { draft, currentPin, editMode } = state;
 
   let BlogContent;
-  if (!draft && !currentPin) {
+  if (!draft && !currentPin && !editMode) {
     BlogContent = <NoContent />;
   } else if (draft && !currentPin) {
     BlogContent = <AddContent user={currentUser} />;
-  } else if (!draft && currentPin) {
+  } else if (!draft && currentPin && !editMode) {
     BlogContent = <DisplayContent user={currentUser} />;
+  } else if (editMode && !draft) {
+    BlogContent = <EditContent user={currentUser} />;
   }
 
   return (

@@ -14,7 +14,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between items-center py-6 px-8 w-full bg-blue-400 ">
+    <div className="flex justify-between items-center py-6 px-10 w-full bg-blue-400 ">
       <div className="text-white text-xs font-bold uppercase">
         Hello, {currentUser.displayName}
       </div>

@@ -30,6 +30,28 @@ export default function reducer(state, action) {
         currentPin: action.payload,
         draft: null
       };
+    case 'DELETE_PIN':
+      return {
+        ...state,
+        currentPin: null
+      };
+    case 'EDIT_MODE':
+      return {
+        ...state,
+        editMode: true
+      };
+    case 'UPDATE_PIN':
+      return {
+        ...state,
+        editMode: false,
+        currentPin: null
+      };
+    case 'CANCEL_EDIT':
+      return {
+        ...state,
+        editMode: false,
+        currentPin: null
+      };
     default:
       return state;
   }

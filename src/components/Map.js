@@ -59,7 +59,7 @@ const Map = () => {
 
       dispatch({ type: 'SET_PINS', payload: pins });
     });
-  });
+  }, []);
 
   const getUserPosition = () => {
     if ('geolocation' in navigator) {
