@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faWalking,
   faHome,
   faThumbtack,
   faMapMarkerAlt
@@ -12,11 +11,11 @@ import { AuthContext } from '../Auth';
 import { db } from '../firebase';
 
 const INITIAL_VIEWPORT = {
-  latitude: 38.8418388,
-  longitude: -77.4340297,
+  latitude: 38.739702160746965,
+  longitude: -77.63519381402206,
   bearing: 4.539007092198582,
   pitch: 46.28088218000663,
-  zoom: 8
+  zoom: 8.5
 };
 
 const Map = () => {
@@ -130,7 +129,7 @@ const Map = () => {
               icon={faMapMarkerAlt}
               size="2x"
               onClick={() => handlePinClick(pin)}
-              className="text-pink-600"
+              className="font-color-secondary"
             />
           </Marker>
         ))}

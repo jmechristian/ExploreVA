@@ -7,3 +7,27 @@ html {
     font-family: 'Inter var', sans-serif;
   }
 }
+
+.font-secondary {
+  font-family: 'DM Serif Display', serif;
+}
+
+.bg-primary {
+  background-color: #211026;
+}
+
+.bg-secondary {
+  background-color: #bf1f2c;
+}
+
+.bg-tertiary {
+  background-color: #6d6d7b;
+}
+
+.font-color-secondary {
+  color: #bf1f2c;
+}
+
+.font-color-tertiary {
+  color: #6d6d7b;
+}

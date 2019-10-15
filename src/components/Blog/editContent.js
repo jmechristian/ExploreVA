@@ -14,7 +14,6 @@ const EditContent = props => {
   const [newLocation, setNewLocation] = useState('');
   const [newContent, setNewContent] = useState('');
   const [image, setImage] = useState('');
-  const [submitting, setSubmitting] = useState(false);
 
   const handleImageUpload = async () => {
     const data = new FormData();
@@ -31,7 +30,6 @@ const EditContent = props => {
   const handleSubmit = async event => {
     try {
       event.preventDefault();
-      setSubmitting(true);
       const url = await handleImageUpload();
       const { latitude, longitude } = state.currentPin;
       const title = !newTitle ? state.currentPin.title : newTitle;
@@ -130,10 +128,18 @@ const EditContent = props => {
           </div>
           <div>
             <button type="submit" onClick={handleSubmit}>
-              <FontAwesomeIcon icon={faCheckCircle} size="lg" />
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                size="lg"
+                className="font-color-tertiary"
+              />
             </button>
             <button className="ml-4" onClick={handleCancelEdit}>
-              <FontAwesomeIcon icon={faTimesCircle} size="lg" />
+              <FontAwesomeIcon
+                icon={faTimesCircle}
+                size="lg"
+                className="font-color-tertiary"
+              />
             </button>
           </div>
         </div>

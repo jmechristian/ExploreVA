@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Header from './Header';
+import app from '../firebase';
 
 import AddContent from './Blog/addContent';
 import NoContent from './Blog/noContent';
@@ -24,13 +24,31 @@ const Blog = () => {
     BlogContent = <EditContent user={currentUser} />;
   }
 
+  const signOutHandler = async () => {
+    try {
+      await app.auth().signOut();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <div className="flex flex-col w-full md:w-1/3">
-      <Header />
-      <div className="flex w-full bg-indigo-700 md:h-screen">
-        <div className="text-white self-center -mt-16 flex-1">
-          {BlogContent}
+    <div className="flex flex-col w-full md:w-1/3 bg-primary items-center">
+      <div className="flex justify-between items-center mt-8 w-3/4">
+        <div className="text-white text-xs font-bold uppercase font-color-tertiary">
+          Hello, {currentUser.displayName}
         </div>
+        <div>
+          <button
+            onClick={signOutHandler}
+            className="text-white text-xs font-bold uppercase font-color-tertiary"
+          >
+            Sign Out
+          </button>
+        </div>
+      </div>
+      <div className="flex w-full bg-primary h-full">
+        <div className="text-white flex-1  self-center">{BlogContent}</div>
       </div>
     </div>
   );

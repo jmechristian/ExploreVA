@@ -28,7 +28,7 @@ const DisplayContent = props => {
   return (
     <div className="flex flex-col content-center">
       <div className="mb-6 flex flex-col items-center">
-        <div className="flex justify-left w-3/4 text-4xl font-extrabold leading-tight">
+        <div className="flex justify-left w-3/4 text-5xl font-extrabold leading-none font-secondary tracking-wide">
           {currentPin.location}
         </div>
       </div>
@@ -55,7 +55,11 @@ const DisplayContent = props => {
         <div className="flex justify-end w-3/4">
           <div>
             <button onClick={setEditMode}>
-              <FontAwesomeIcon icon={faEdit} size="lg" />
+              <FontAwesomeIcon
+                icon={faEdit}
+                size="lg"
+                className="font-color-tertiary"
+              />
             </button>
           </div>
           <div>
@@ -63,7 +67,11 @@ const DisplayContent = props => {
               onClick={deleteHandler.bind(this, currentPin.id)}
               className="ml-4"
             >
-              <FontAwesomeIcon icon={faMinusCircle} size="lg" />
+              <FontAwesomeIcon
+                icon={faMinusCircle}
+                size="lg"
+                className="font-color-tertiary"
+              />
             </button>
           </div>
         </div>

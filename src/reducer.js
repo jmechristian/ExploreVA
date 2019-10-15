@@ -12,7 +12,8 @@ export default function reducer(state, action) {
     case 'DELETE_DRAFT':
       return {
         ...state,
-        draft: null
+        draft: null,
+        editMode: null
       };
     case 'UPDATE_DRAFT_LOCATION':
       return {
