@@ -31,3 +31,7 @@ html {
 .font-color-tertiary {
   color: #6d6d7b;
 }
+
+.h-50 {
+  height: 50vh;
+}

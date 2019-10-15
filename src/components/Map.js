@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactMapGL, { Marker } from 'react-map-gl';
+import { useMediaQuery } from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome,
@@ -86,11 +87,13 @@ const Map = () => {
     dispatch({ type: 'CURRENT_PIN', payload: pin });
   };
 
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
   return (
     <div className="w-full md:w-2/3 md:h-screen">
       <ReactMapGL
         width="100%"
-        height="100vh"
+        height={isMobile ? '50vh' : '100vh'}
         mapStyle="mapbox://styles/jmechristian/ck1ogvt4m1ses1brt5xfloncr"
         mapboxApiAccessToken="pk.eyJ1Ijoiam1lY2hyaXN0aWFuIiwiYSI6ImNrMWljamw4bDBqcGEzbm55Ynd2ZXl2cjgifQ.Ri325k-o8GPgudwW6o2NHw"
         onViewportChange={newViewport => setViewport(newViewport)}
