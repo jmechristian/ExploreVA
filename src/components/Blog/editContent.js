@@ -62,7 +62,7 @@ const EditContent = props => {
   return (
     <div>
       <div className="mb-10 flex justify-center">
-        <div className="text-5xl font-extrabold text-left w-3/4 leading-tight">
+        <div className="text-5xl font-extrabold text-left w-3/4 leading-tight font-secondary tracking-wide">
           We Went and Did Things!
         </div>
       </div>
