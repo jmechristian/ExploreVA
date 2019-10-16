@@ -37,7 +37,7 @@ const DisplayContent = props => {
           <div className="text-indigo-300 text-sm font-bold mb-2 uppercase">
             What was happening?
           </div>
-          <div className="text-white font-semibold text-xl">
+          <div className="text-white font-semibold text-2xl">
             {currentPin.title}
           </div>
         </div>
