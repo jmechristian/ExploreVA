@@ -23,16 +23,16 @@ const Map = () => {
   const { state, dispatch } = useContext(PinContext);
   const { currentUser } = useContext(AuthContext);
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
-  const [userPosition, setUserPosition] = useState(null);
+  // const [userPosition, setUserPosition] = useState(null);
 
   const ref = db
     .collection('users')
     .doc(`${currentUser.uid}`)
     .collection('pins');
 
-  useEffect(() => {
-    getUserPosition();
-  }, []);
+  // useEffect(() => {
+  //   getUserPosition();
+  // }, []);
 
   useEffect(() => {
     return ref.onSnapshot(querySnapshot => {
@@ -61,15 +61,15 @@ const Map = () => {
     });
   }, []);
 
-  const getUserPosition = () => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const { latitude, longitude } = position.coords;
-        setViewport({ ...viewport, latitude, longitude });
-        setUserPosition({ latitude, longitude });
-      });
-    }
-  };
+  // const getUserPosition = () => {
+  //   if ('geolocation' in navigator) {
+  //     navigator.geolocation.getCurrentPosition(position => {
+  //       const { latitude, longitude } = position.coords;
+  //       setViewport({ ...viewport, latitude, longitude });
+  //       setUserPosition({ latitude, longitude });
+  //     });
+  //   }
+  // };
 
   const handleMapClick = ({ lngLat, leftButton }) => {
     if (!leftButton) return;
@@ -100,16 +100,14 @@ const Map = () => {
         onClick={handleMapClick}
         {...viewport}
       >
-        {userPosition && (
-          <Marker
-            latitude={userPosition.latitude}
-            longitude={userPosition.longitude}
-            offsetLeft={-19}
-            offsetTop={-37}
-          >
-            <FontAwesomeIcon icon={faHome} size="lg" />
-          </Marker>
-        )}
+        <Marker
+          latitude={38.8418972}
+          longitude={-77.4339847}
+          offsetLeft={-19}
+          offsetTop={-37}
+        >
+          <FontAwesomeIcon icon={faHome} size="lg" />
+        </Marker>
         {state.draft && (
           <Marker
             latitude={state.draft.latitude}

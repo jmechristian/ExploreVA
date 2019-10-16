@@ -33,7 +33,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="flex flex-col w-full md:w-1/3 bg-primary items-center">
+    <div className="flex flex-col w-full lg:w-1/3 bg-primary items-center">
       <div className="flex justify-between items-center mt-8 w-3/4">
         <div className="text-white text-xs font-bold uppercase font-color-tertiary">
           Hello, {currentUser.displayName}
