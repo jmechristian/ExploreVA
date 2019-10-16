@@ -87,7 +87,7 @@ const Map = () => {
     dispatch({ type: 'CURRENT_PIN', payload: pin });
   };
 
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const isMobile = useMediaQuery({ maxWidth: 770 });
 
   return (
     <div className="w-full md:w-2/3 md:h-screen">
