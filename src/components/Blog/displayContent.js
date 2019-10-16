@@ -27,8 +27,8 @@ const DisplayContent = props => {
   const { currentPin } = state;
   return (
     <div className="flex flex-col content-center">
-      <div className="mb-6 flex flex-col items-center">
-        <div className="flex justify-left w-3/4  text-6xl font-extrabold leading-none font-secondary tracking-wide">
+      <div className="mb-10 flex flex-col items-center">
+        <div className="flex justify-left w-3/4 text-5xl md:text-6xl font-extrabold leading-none font-secondary tracking-wide">
           {currentPin.location}
         </div>
       </div>
