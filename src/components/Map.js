@@ -90,7 +90,7 @@ const Map = () => {
   const isMobile = useMediaQuery({ maxWidth: 770 });
 
   return (
-    <div className="w-full md:w-2/3 md:h-screen">
+    <div className="w-full lg:w-2/3 lg:h-screen">
       <ReactMapGL
         width="100%"
         height={isMobile ? '50vh' : '100vh'}
