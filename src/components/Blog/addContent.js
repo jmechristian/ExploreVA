@@ -67,7 +67,7 @@ const AddContent = props => {
   return (
     <div>
       <div className="mb-10 flex justify-center">
-        <div className="text-5xl md:text-6xl font-extrabold text-left w-3/4 leading-tight font-secondary tracking-wide">
+        <div className="text-5xl lg:text-6xl font-extrabold text-left w-3/4 leading-tight font-secondary tracking-wide">
           We Went and Did Things!
         </div>
       </div>

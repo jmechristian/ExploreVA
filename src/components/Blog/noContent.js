@@ -12,7 +12,7 @@ const NoContent = () => {
           className="font-color-secondary"
         />
       </div>
-      <div className="text-5xl md:text-6xl font-extrabold flex w-3/4 mb-8 md:mb-12 leading-none md:leading-tight font-secondary">
+      <div className="text-5xl lg:text-6xl font-extrabold flex w-3/4 mb-8 lg:mb-12 leading-none md:leading-tight font-secondary">
         Click a pin to see what we've been up to!
       </div>
       <div className="text-2xl text-indigo-300 flex w-3/4 mb-8">
