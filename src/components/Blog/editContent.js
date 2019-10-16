@@ -24,7 +24,7 @@ const EditContent = props => {
       'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
       data
     );
-    return res.data.url;
+    return res.data.secure_url;
   };
 
   const handleSubmit = async event => {

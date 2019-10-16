@@ -29,11 +29,12 @@ const AddContent = props => {
     data.append('file', image);
     data.append('upload_preset', 'exploreVA');
     data.append('cloud_name', 'jmechristian');
+    data.append('cloudinary_secure', 'true');
     const res = await axios.post(
       'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
       data
     );
-    return res.data.url;
+    return res.data.secure_url;
   };
 
   const handleSubmit = async event => {

@@ -49,26 +49,23 @@ const DisplayContent = props => {
         </div>
         <div className="flex flex-wrap justify-between w-3/4">
           <div className="mb-6">
-            <img src={currentPin.image} alt="mom" className="object-cover" />
+            <img src={currentPin.image} alt="your mom" />
           </div>
         </div>
         <div className="flex justify-end w-3/4 mb-8">
           <div>
-            <button onClick={setEditMode}>
+            <button onClick={deleteHandler.bind(this, currentPin.id)}>
               <FontAwesomeIcon
-                icon={faEdit}
+                icon={faMinusCircle}
                 size="lg"
                 className="font-color-tertiary"
               />
             </button>
           </div>
-          <div>
-            <button
-              onClick={deleteHandler.bind(this, currentPin.id)}
-              className="ml-4"
-            >
+          <div className="ml-4">
+            <button onClick={setEditMode}>
               <FontAwesomeIcon
-                icon={faMinusCircle}
+                icon={faEdit}
                 size="lg"
                 className="font-color-tertiary"
               />
