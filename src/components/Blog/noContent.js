@@ -12,10 +12,10 @@ const NoContent = () => {
           className="font-color-secondary"
         />
       </div>
-      <div className="text-4xl font-extrabold flex w-3/4 mb-12 leading-tight">
+      <div className="text-4xl font-extrabold flex w-3/4 mb-8 leading-tight">
         Click a pin to see what we've been up to!
       </div>
-      <div className="text-2xl text-indigo-300 flex w-3/4">
+      <div className="text-2xl text-indigo-300 flex w-3/4 mb-8">
         Use your mouse to zoom and move around the map.
       </div>
     </div>

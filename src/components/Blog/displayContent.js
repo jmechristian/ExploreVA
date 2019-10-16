@@ -49,10 +49,10 @@ const DisplayContent = props => {
         </div>
         <div className="flex flex-wrap justify-between w-3/4">
           <div className="mb-6">
-            <img src={currentPin.image} alt="mom" />
+            <img src={currentPin.image} alt="mom" className="object-cover" />
           </div>
         </div>
-        <div className="flex justify-end w-3/4">
+        <div className="flex justify-end w-3/4 mb-8">
           <div>
             <button onClick={setEditMode}>
               <FontAwesomeIcon
