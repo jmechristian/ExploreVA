@@ -15,7 +15,7 @@ const NoContent = () => {
       <div className="text-4xl md:text-5xl font-extrabold flex w-3/4 mb-8 lg:mb-16 leading-tight font-secondary">
         Click a pin to see what we've been up to!
       </div>
-      <div className="md:text-2xl text-indigo-300 flex w-3/4 my-8">
+      <div className="flex text-lg justify-center text-indigo-300 flex my-12 w-3/4 ">
         Use your mouse to zoom and move around the map.
       </div>
     </div>

@@ -9,6 +9,7 @@ import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './Auth';
 import PinContext from './PinContext';
 import reducer from './reducer';
+import AppDisplay from './AppDisplay';
 
 const Root = () => {
   const initialState = useContext(PinContext);
@@ -19,7 +20,10 @@ const Root = () => {
       <PinContext.Provider value={{ state, dispatch }}>
         <Router>
           <Switch>
-            <PrivateRoute exact path="/" component={App} />
+            <Route exact path="/" component={AppDisplay} />
+          </Switch>
+          <Switch>
+            <PrivateRoute exact path="/app" component={App} />
           </Switch>
           <Switch>
             <Route exact path="/login" component={Login} />

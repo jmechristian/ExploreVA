@@ -3,8 +3,13 @@ import PinContext from '../../PinContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { db } from '../../firebase';
+import { AuthContext } from '../../Auth';
 
 const DisplayContent = props => {
+  const { state, dispatch } = useContext(PinContext);
+  const { currentUser } = useContext(AuthContext);
+  const { currentPin } = state;
+
   const setEditMode = () => {
     dispatch({ type: 'EDIT_MODE' });
   };
@@ -23,8 +28,33 @@ const DisplayContent = props => {
       console.log(err);
     }
   };
-  const { state, dispatch } = useContext(PinContext);
-  const { currentPin } = state;
+
+  let editContent = null;
+  if (currentUser) {
+    editContent = (
+      <>
+        <div>
+          <button onClick={deleteHandler.bind(this, currentPin.id)}>
+            <FontAwesomeIcon
+              icon={faMinusCircle}
+              size="lg"
+              className="font-color-tertiary"
+            />
+          </button>
+        </div>
+        <div className="ml-4">
+          <button onClick={setEditMode}>
+            <FontAwesomeIcon
+              icon={faEdit}
+              size="lg"
+              className="font-color-tertiary"
+            />
+          </button>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="flex flex-col content-center">
       <div className="mb-6 md:mb-8 flex flex-col items-center">
@@ -52,26 +82,7 @@ const DisplayContent = props => {
             <img src={currentPin.image} alt="your mom" />
           </div>
         </div>
-        <div className="flex justify-end w-3/4 mb-8">
-          <div>
-            <button onClick={deleteHandler.bind(this, currentPin.id)}>
-              <FontAwesomeIcon
-                icon={faMinusCircle}
-                size="lg"
-                className="font-color-tertiary"
-              />
-            </button>
-          </div>
-          <div className="ml-4">
-            <button onClick={setEditMode}>
-              <FontAwesomeIcon
-                icon={faEdit}
-                size="lg"
-                className="font-color-tertiary"
-              />
-            </button>
-          </div>
-        </div>
+        <div className="flex justify-end w-3/4 mb-8">{editContent}</div>
       </div>
     </div>
   );

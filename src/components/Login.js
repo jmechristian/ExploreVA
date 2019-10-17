@@ -18,7 +18,7 @@ const Login = ({ history }) => {
 
   if (currentUser) {
     createUserProfileDocument(currentUser);
-    return <Redirect to="/" />;
+    return <Redirect to="/app" />;
   }
 
   return (
