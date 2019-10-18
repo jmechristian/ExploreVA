@@ -13,40 +13,38 @@ const AddContent = props => {
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [content, setContent] = useState('');
-  const [image, setImage] = useState('');
+  const [filenames, setFilenames] = useState('');
+  const [downloadURL, setDownloadURL] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   const handleDeleteDraft = () => {
     setTitle('');
     setLocation('');
     setContent('');
-    setImage('');
     dispatch({ type: 'DELETE_DRAFT' });
   };
 
-  const handleImageUpload = async () => {
-    const data = new FormData();
-    data.append('file', image);
-    data.append('upload_preset', 'exploreVA');
-    data.append('cloud_name', 'jmechristian');
-    data.append('cloudinary_secure', 'true');
-    const res = await axios.post(
-      'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
-      data
-    );
-    return res.data.secure_url;
-  };
+  // const handleImageUpload = async () => {
+  //   const data = new FormData();
+  //   data.append('file', image);
+  //   data.append('upload_preset', 'exploreVA');
+  //   data.append('cloud_name', 'jmechristian');
+  //   data.append('cloudinary_secure', 'true');
+  //   const res = await axios.post(
+  //     'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
+  //     data
+  //   );
+  //   return res.data.secure_url;
+  // };
 
   const handleSubmit = async event => {
     try {
       event.preventDefault();
       setSubmitting(true);
-      const url = await handleImageUpload();
       const { latitude, longitude } = state.draft;
       const pinData = {
         title,
         location,
-        image: url,
         content,
         latitude,
         longitude
@@ -122,7 +120,7 @@ const AddContent = props => {
           />
         </div>
         <div className="flex justify-between mb-6 w-3/4">
-          <div className="w-1/2">
+          {/* <div className="w-1/2">
             <input
               type="file"
               accept="image/*"
@@ -130,17 +128,11 @@ const AddContent = props => {
               onChange={e => setImage(e.target.files[0])}
               multiple
             />
-          </div>
+          </div> */}
           <div>
             <button
               type="submit"
-              disabled={
-                !location.trim() ||
-                !title.trim() ||
-                !content.trim() ||
-                !image ||
-                submitting
-              }
+              disabled={!location.trim() || !title.trim() || !content.trim()}
               onClick={handleSubmit}
             >
               <FontAwesomeIcon icon={faCheckCircle} size="lg" />
