@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import {
   faCheckCircle,
   faTimesCircle
@@ -13,24 +12,23 @@ const EditContent = props => {
   const [newTitle, setNewTitle] = useState('');
   const [newLocation, setNewLocation] = useState('');
   const [newContent, setNewContent] = useState('');
-  const [image, setImage] = useState('');
 
-  const handleImageUpload = async () => {
-    const data = new FormData();
-    data.append('file', image);
-    data.append('upload_preset', 'exploreVA');
-    data.append('cloud_name', 'jmechristian');
-    const res = await axios.post(
-      'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
-      data
-    );
-    return res.data.secure_url;
-  };
+  // const handleImageUpload = async () => {
+  //   const data = new FormData();
+  //   data.append('file', image);
+  //   data.append('upload_preset', 'exploreVA');
+  //   data.append('cloud_name', 'jmechristian');
+  //   const res = await axios.post(
+  //     'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
+  //     data
+  //   );
+  //   return res.data.secure_url;
+  // };
 
   const handleSubmit = async event => {
     try {
       event.preventDefault();
-      const url = await handleImageUpload();
+      // const url = await handleImageUpload();
       const { latitude, longitude } = state.currentPin;
       const title = !newTitle ? state.currentPin.title : newTitle;
       const location = !newLocation ? state.currentPin.location : newLocation;
@@ -38,7 +36,6 @@ const EditContent = props => {
       const pinData = {
         title,
         location,
-        image: url,
         content,
         latitude,
         longitude
@@ -117,7 +114,7 @@ const EditContent = props => {
           />
         </div>
         <div className="flex justify-between mb-6 w-3/4">
-          <div className="w-1/2">
+          {/* <div className="w-1/2">
             <input
               type="file"
               accept="image/*"
@@ -125,7 +122,7 @@ const EditContent = props => {
               onChange={e => setImage(e.target.files[0])}
               multiple
             />
-          </div>
+          </div> */}
           <div>
             <button type="submit" onClick={handleSubmit}>
               <FontAwesomeIcon

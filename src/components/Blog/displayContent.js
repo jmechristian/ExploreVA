@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PinContext from '../../PinContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
 import { AuthContext } from '../../Auth';
 
 const DisplayContent = props => {
@@ -79,7 +79,11 @@ const DisplayContent = props => {
         </div>
         <div className="flex flex-wrap justify-between w-3/4">
           <div className="mb-6">
-            <img src={currentPin.image} alt="your mom" />
+            {currentPin.image.map(image => (
+              <div className="w-50 flex-wrap">
+                <img src={image} alt="your mom" />
+              </div>
+            ))}
           </div>
         </div>
         <div className="flex justify-end w-3/4 mb-8">{editContent}</div>
