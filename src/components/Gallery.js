@@ -6,8 +6,8 @@ const Gallery = props => {
     <div>
       <Carousel>
         {props.currentPin.image.map(img => (
-          <div>
-            <img src={img} alt={props.currentPin.title} />
+          <div key={props.currentPin.id}>
+            <img src={img} alt={props.currentPin.image} />
           </div>
         ))}
       </Carousel>

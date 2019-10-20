@@ -73,8 +73,6 @@ const AddContent = props => {
     setDownloadUrl(prevState => {
       return [...prevState, downloadURL];
     });
-
-    console.log(downloadUrl);
   };
 
   return (

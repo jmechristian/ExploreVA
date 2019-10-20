@@ -2,8 +2,6 @@ import firebase, { functions } from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/firebase-storage';
-import 'firebase/firebase-functions';
-// import { Storage } from '@google-cloud/storage';
 
 const app = firebase.initializeApp({
   apiKey: 'AIzaSyB9_Ri4uqES6oqa_Likd6L0KD-9IAWdUQQ',
@@ -15,19 +13,6 @@ const app = firebase.initializeApp({
   appId: '1:462745368825:web:600bd6eee9ca17a5eb0a28',
   measurementId: 'G-QGXF4BF5MF'
 });
-
-// const gcs = new Storage();
-
-// export const onFileChange = functions.storage.object().onChange(event => {
-//   const object = event.data;
-//   const bucket = object.bucket;
-//   const contentType = object.contentType;
-//   const filepath = object.name;
-//   console.log('Name changes started')
-
-//   const destBucket = gcs.bucket(bucket);
-//   return;
-// })
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
