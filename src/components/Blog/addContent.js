@@ -14,6 +14,7 @@ const AddContent = props => {
   const [location, setLocation] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState('');
+  const [secureURL, setSecureURL] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   const handleDeleteDraft = () => {
@@ -24,18 +25,52 @@ const AddContent = props => {
     dispatch({ type: 'DELETE_DRAFT' });
   };
 
-  const handleImageUpload = async () => {
-    const data = new FormData();
-    data.append('file', image);
-    data.append('upload_preset', 'exploreVA');
-    data.append('cloud_name', 'jmechristian');
-    data.append('cloudinary_secure', 'true');
-    const res = await axios.post(
-      'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
-      data
-    );
-    return res.data.secure_url;
+  const handleImageUpload = () => {
+    image.map(fle => {
+      const data = new FormData();
+      data.append('file', fle);
+      data.append('upload_preset', 'exploreVA');
+      data.append('cloud_name', 'jmechristian');
+
+      return axios
+        .post(
+          'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
+          data,
+          {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+          }
+        )
+        .then(response => {
+          const data = response.data;
+          const fileURL = data.secure_url; // You should store this URL for future references in your app
+          console.log(fileURL);
+          setSecureURL([...secureURL, ...fileURL]);
+        });
+    });
+
+    return secureURL;
   };
+
+  // const handleImageUpload = async () => {
+  //   const data = new FormData();
+  //   // for (var x = 0; x < image.length; x++) {
+  //   //   data.append('file', image[x]);
+  //   // }
+  //   data.append('file', image);
+  //   data.append('upload_preset', 'exploreVA');
+  //   data.append('cloud_name', 'jmechristian');
+  //   const res = await axios.post(
+  //     'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
+  //     data
+  //   );
+  //   return res.data.secure_url;
+  // };
+
+  // const addImages = event => {
+  //   // setImage([...image, ...event.target.files]);
+  //   setImage(event.target.files[0]);
+  //   console.log(image);
+  // };
 
   const handleSubmit = async event => {
     try {
@@ -127,7 +162,7 @@ const AddContent = props => {
               type="file"
               accept="image/*"
               id="image"
-              onChange={e => setImage(e.target.files[0])}
+              onChange={event => setImage([...image, ...event.target.files])}
               multiple
             />
           </div>

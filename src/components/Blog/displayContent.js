@@ -79,6 +79,9 @@ const DisplayContent = props => {
         </div>
         <div className="flex flex-wrap justify-between w-3/4">
           <div className="mb-6">
+            {/* {currentPin.image.map(img => (
+              <img src={img} alt="img" />
+            ))} */}
             <img src={currentPin.image} alt="your mom" />
           </div>
         </div>
