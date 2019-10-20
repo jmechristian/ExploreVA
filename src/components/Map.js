@@ -23,6 +23,7 @@ const Map = () => {
   const { state, dispatch } = useContext(PinContext);
   const { currentUser } = useContext(AuthContext);
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
+
   // const [userPosition, setUserPosition] = useState(null);
 
   const ref = db
