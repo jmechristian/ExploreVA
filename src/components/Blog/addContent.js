@@ -14,8 +14,7 @@ const AddContent = props => {
   const [location, setLocation] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState('');
-  const [secureURL, setSecureURL] = useState('');
-  const [submitting, setSubmitting] = useState(false);
+  // const [secureURL, setSecureURL] = useState('');
 
   const handleDeleteDraft = () => {
     setTitle('');
@@ -25,30 +24,25 @@ const AddContent = props => {
     dispatch({ type: 'DELETE_DRAFT' });
   };
 
-  const handleImageUpload = () => {
-    image.map(fle => {
+  const handleImageUpload = async () => {
+    // event.preventDefault();
+    let newArray = [];
+    image.map(async fle => {
       const data = new FormData();
       data.append('file', fle);
       data.append('upload_preset', 'exploreVA');
       data.append('cloud_name', 'jmechristian');
 
-      return axios
-        .post(
-          'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
-          data,
-          {
-            headers: { 'X-Requested-With': 'XMLHttpRequest' }
-          }
-        )
-        .then(response => {
-          const data = response.data;
-          const fileURL = data.secure_url; // You should store this URL for future references in your app
-          console.log(fileURL);
-          setSecureURL([...secureURL, ...fileURL]);
-        });
-    });
+      const upload = await axios.post(
+        'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
+        data
+      );
 
-    return secureURL;
+      const urls = await upload.data.secure_url;
+      console.log(urls);
+      newArray.push({ url: urls });
+    });
+    return newArray;
   };
 
   // const handleImageUpload = async () => {
@@ -66,22 +60,16 @@ const AddContent = props => {
   //   return res.data.secure_url;
   // };
 
-  // const addImages = event => {
-  //   // setImage([...image, ...event.target.files]);
-  //   setImage(event.target.files[0]);
-  //   console.log(image);
-  // };
-
   const handleSubmit = async event => {
     try {
       event.preventDefault();
-      setSubmitting(true);
-      const url = await handleImageUpload();
+      const updatedUrls = await handleImageUpload();
+      console.log(state.secureUrls);
       const { latitude, longitude } = state.draft;
       const pinData = {
         title,
+        image: FieldValue.arrayUnion(updatedUrls),
         location,
-        image: url,
         content,
         latitude,
         longitude
@@ -169,13 +157,13 @@ const AddContent = props => {
           <div>
             <button
               type="submit"
-              disabled={
-                !location.trim() ||
-                !title.trim() ||
-                !content.trim() ||
-                !image ||
-                submitting
-              }
+              // disabled={
+              //   !location.trim() ||
+              //   !title.trim() ||
+              //   !content.trim() ||
+              //   !image ||
+              //   submitting
+              // }
               onClick={handleSubmit}
             >
               <FontAwesomeIcon icon={faCheckCircle} size="lg" />

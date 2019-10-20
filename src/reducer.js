@@ -53,6 +53,11 @@ export default function reducer(state, action) {
         editMode: false,
         currentPin: null
       };
+    case 'SET_URLS':
+      return {
+        ...state,
+        secureUrls: action.payload
+      };
     default:
       return state;
   }
