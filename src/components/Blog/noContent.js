@@ -6,6 +6,11 @@ import { useMediaQuery } from 'react-responsive';
 const NoContent = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
+  let info;
+  if (!isMobile) {
+    info = <p>Use your mouse to zoom and move around the map.</p>;
+  }
+
   return (
     <div className="flex flex-col items-center text-center my-8">
       <div className="flex mb-6">
@@ -19,7 +24,7 @@ const NoContent = () => {
         Click a pin to see what we've been up to!
       </div>
       <div className="flex text-lg justify-center text-indigo-300 flex my-12 w-3/4 ">
-        Use your mouse to zoom and move around the map.
+        {info}
       </div>
     </div>
   );
