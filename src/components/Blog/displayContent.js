@@ -59,10 +59,11 @@ const DisplayContent = props => {
   return (
     <div className="flex flex-col content-center mt-6">
       <div className="mb-6 md:mb-8 flex flex-col items-center">
-        <div className="flex justify-left w-3/4 text-5xl font-extrabold leading-none font-secondary tracking-wide">
+        <div className="flex justify-left w-3/4 text-5xl leading-tight font-secondary tracking-wide">
           {currentPin.location}
         </div>
       </div>
+
       <div className="flex flex-col items-center">
         <div className="flex flex-col justify-left mb-6 w-3/4">
           <div className="text-indigo-300 text-sm font-bold mb-2 uppercase">

@@ -1,5 +1,5 @@
 @import url('https://rsms.me/inter/inter.css');
-@import url('https://fonts.googleapis.com/css?family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Anton&display=swap');
 html {
   font-family: 'Inter', sans-serif;
 }
@@ -10,7 +10,7 @@ html {
 }
 
 .font-secondary {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Anton', sans-serif;
 }
 
 .bg-primary {
