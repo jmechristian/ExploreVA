@@ -1,5 +1,5 @@
 @import url('https://rsms.me/inter/inter.css');
-@import url('https://fonts.googleapis.com/css?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap');
 html {
   font-family: 'Inter', sans-serif;
 }
@@ -10,7 +10,7 @@ html {
 }
 
 .font-secondary {
-  font-family: 'Anton', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .bg-primary {

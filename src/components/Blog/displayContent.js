@@ -58,8 +58,8 @@ const DisplayContent = props => {
 
   return (
     <div className="flex flex-col content-center mt-6 lg:mt-10">
-      <div className="mb-6 md:mb-12 flex flex-col items-center">
-        <div className="flex justify-left w-3/4 text-5xl leading-tight font-secondary tracking-wide">
+      <div className="mb-6 md:mb-8 flex flex-col items-center">
+        <div className="flex justify-left w-3/4 text-5xl leading-tight font-black tracking-wide">
           {currentPin.location}
         </div>
       </div>
@@ -69,13 +69,13 @@ const DisplayContent = props => {
           <div className="font-color-tertiary text-sm font-bold mb-2 uppercase">
             What was happening?
           </div>
-          <div className="text-white font-semibold">{currentPin.title}</div>
+          <div className="text-white font-secondary">{currentPin.title}</div>
         </div>
         <div className="flex flex-col justify-left mb-6 w-3/4">
           <div className="font-color-tertiary text-sm font-bold mb-2 uppercase">
             What Did We Get Up to?
           </div>
-          <div className="text-white">{currentPin.content}</div>
+          <div className="text-white font-secondary">{currentPin.content}</div>
         </div>
         <div className="flex flex-wrap justify-between w-3/4">
           <div className="mb-6">
