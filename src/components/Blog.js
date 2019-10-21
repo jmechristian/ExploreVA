@@ -39,7 +39,9 @@ const Blog = () => {
         <Header />
       </div>
       <div className="flex w-full bg-primary h-full bg-image">
-        <div className="text-white w-full">{BlogContent}</div>
+        <div className="text-white w-full lg:self-center lg:flex">
+          {BlogContent}
+        </div>
       </div>
     </div>
   );

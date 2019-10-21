@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import ReactMapGL, { Marker, GeolocateControl } from 'react-map-gl';
 import { useMediaQuery } from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -15,24 +15,25 @@ const INITIAL_VIEWPORT = {
   latitude: 38.739702160746965,
   longitude: -77.63519381402206,
   bearing: 4.539007092198582,
-  pitch: 46.28088218000663,
-  zoom: 8.5
+  pitch: 46.28088218000663
 };
 
 const Map = () => {
   const { state, dispatch } = useContext(PinContext);
   const { currentUser } = useContext(AuthContext);
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
-  // const [userPosition, setUserPosition] = useState(null);
+
+  const geolocateStyle = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    margin: 10
+  };
 
   const ref = db
     .collection('users')
     .doc(`${currentUser.uid}`)
     .collection('pins');
-
-  // useEffect(() => {
-  //   getUserPosition();
-  // }, []);
 
   useEffect(() => {
     return ref.onSnapshot(querySnapshot => {
@@ -60,16 +61,6 @@ const Map = () => {
       dispatch({ type: 'SET_PINS', payload: pins });
     });
   }, []);
-
-  // const getUserPosition = () => {
-  //   if ('geolocation' in navigator) {
-  //     navigator.geolocation.getCurrentPosition(position => {
-  //       const { latitude, longitude } = position.coords;
-  //       setViewport({ ...viewport, latitude, longitude });
-  //       setUserPosition({ latitude, longitude });
-  //     });
-  //   }
-  // };
 
   const handleMapClick = ({ lngLat, leftButton }) => {
     if (!leftButton) return;
@@ -99,7 +90,14 @@ const Map = () => {
         onViewportChange={newViewport => setViewport(newViewport)}
         onClick={handleMapClick}
         {...viewport}
+        zoom={isMobile ? 6.5 : 8.5}
       >
+        <GeolocateControl
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation={true}
+          style={geolocateStyle}
+          onClick={event => console.log(event)}
+        />
         <Marker
           latitude={38.8418972}
           longitude={-77.4339847}
