@@ -5,29 +5,52 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome,
   faThumbtack,
-  faMapMarkerAlt
+  faMapMarkerAlt,
+  faLocationArrow
 } from '@fortawesome/free-solid-svg-icons';
 import PinContext from '../PinContext';
 import { AuthContext } from '../Auth';
 import { db } from '../firebase';
 
-const INITIAL_VIEWPORT = {
-  latitude: 38.739702160746965,
-  longitude: -77.63519381402206,
-  bearing: 4.539007092198582,
-  pitch: 46.28088218000663
-};
-
 const Map = () => {
+  const INITIAL_VIEWPORT = {
+    latitude: 38.739702160746965,
+    longitude: -77.63519381402206,
+    bearing: 4.539007092198582,
+    pitch: 46.28088218000663,
+    zoom: 8.5
+  };
+
   const { state, dispatch } = useContext(PinContext);
   const { currentUser } = useContext(AuthContext);
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
+  const [userPosition, setUserPosition] = useState(null);
 
   const geolocateStyle = {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    margin: 10
+    top: 10,
+    left: 15,
+    margin: 10,
+    zIndex: 100,
+    backgroundColor: 'white',
+    borderRadius: '100%',
+    boxShadow: '3px 5px 5px rgba(0, 0, 0, .2)'
+  };
+
+  const getUserPosition = () => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const { latitude, longitude } = position.coords;
+        setViewport({ ...viewport, latitude, longitude });
+        if (!state.draft) {
+          dispatch({ type: 'CREATE_DRAFT' });
+        }
+        dispatch({
+          type: 'UPDATE_DRAFT_LOCATION',
+          payload: { longitude, latitude }
+        });
+      });
+    }
   };
 
   const ref = db
@@ -82,6 +105,15 @@ const Map = () => {
 
   return (
     <div className="w-full lg:w-2/3 lg:h-screen">
+      <div style={geolocateStyle}>
+        <button onClick={getUserPosition} className="p-4">
+          <FontAwesomeIcon
+            icon={faLocationArrow}
+            size="lg"
+            className="font-color-secondary"
+          />
+        </button>
+      </div>
       <ReactMapGL
         width="100%"
         height={isMobile ? '50vh' : '100vh'}
@@ -90,14 +122,7 @@ const Map = () => {
         onViewportChange={newViewport => setViewport(newViewport)}
         onClick={handleMapClick}
         {...viewport}
-        zoom={isMobile ? 6.5 : 8.5}
       >
-        <GeolocateControl
-          positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation={true}
-          style={geolocateStyle}
-          onClick={event => console.log(event)}
-        />
         <Marker
           latitude={38.8418972}
           longitude={-77.4339847}
@@ -110,6 +135,17 @@ const Map = () => {
           <Marker
             latitude={state.draft.latitude}
             longitude={state.draft.longitude}
+            offsetLeft={-19}
+            offsetTop={-37}
+          >
+            <FontAwesomeIcon icon={faThumbtack} size="lg" />
+          </Marker>
+        )}
+        {/* Pin for User's Current Position */}
+        {userPosition && (
+          <Marker
+            latitude={userPosition.latitude}
+            longitude={userPosition.longitude}
             offsetLeft={-19}
             offsetTop={-37}
           >
