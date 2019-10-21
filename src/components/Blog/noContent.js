@@ -4,7 +4,7 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 const NoContent = () => {
   return (
-    <div className="flex flex-col items-center text-center mb-16">
+    <div className="flex flex-col items-center text-center my-4">
       <div className="flex mb-6">
         <FontAwesomeIcon
           icon={faMapMarkerAlt}
@@ -12,7 +12,7 @@ const NoContent = () => {
           className="font-color-secondary"
         />
       </div>
-      <div className="text-4xl md:text-5xl font-extrabold flex w-3/4 mb-8 lg:mb-16 leading-tight font-secondary">
+      <div className="text-4xl md:text-5xl font-extrabold flex w-3/4 mb-8 lg:mb-8 leading-tight font-secondary">
         Click a pin to see what we've been up to!
       </div>
       <div className="flex text-lg justify-center text-indigo-300 flex my-12 w-3/4 ">

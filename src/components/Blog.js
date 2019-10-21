@@ -6,6 +6,7 @@ import NoContent from './Blog/noContent';
 import DisplayContent from './Blog/displayContent';
 import PinContext from '../PinContext';
 import EditContent from './Blog/editContent';
+import Header from './Header';
 import { AuthContext } from '../Auth';
 
 const Blog = () => {
@@ -34,18 +35,8 @@ const Blog = () => {
 
   return (
     <div className="flex flex-col w-full lg:w-1/3 bg-primary items-center">
-      <div className="flex justify-between items-center mt-8 w-3/4">
-        <div className="text-white text-xs font-bold uppercase font-color-tertiary">
-          Hello, {currentUser.displayName}
-        </div>
-        <div>
-          <button
-            onClick={signOutHandler}
-            className="text-white text-xs font-bold uppercase font-color-tertiary"
-          >
-            Sign Out
-          </button>
-        </div>
+      <div className="flex w-full mx-8">
+        <Header />
       </div>
       <div className="flex w-full bg-primary h-full">
         <div className="text-white flex-1  self-center">{BlogContent}</div>

@@ -16,20 +16,18 @@ const Header = () => {
 
   const isMobile = useMediaQuery({ maxWidth: 767 });
   let headerContent = null;
-  if (!isMobile) {
+  if (!isMobile || currentUser) {
     headerContent = (
       <>
-        <div className="text-white text-xs font-bold uppercase">
+        <div className="font-color-tertiary text-xs font-bold uppercase">
           Hello, {currentUser.displayName}
         </div>
-        <div>
-          <button
-            onClick={signOutHandler}
-            className="text-white text-xs font-bold uppercase"
-          >
-            Sign Out
-          </button>
-        </div>
+        <button
+          onClick={signOutHandler}
+          className="font-color-tertiary text-xs font-bold uppercase"
+        >
+          Sign Out
+        </button>
       </>
     );
   } else {
@@ -37,7 +35,7 @@ const Header = () => {
   }
 
   return (
-    <div className="flex justify-between items-center py-6 px-10 w-full bg-blue-400 ">
+    <div className="flex justify-between items-center py-6 px-10 w-full">
       {headerContent}
     </div>
   );

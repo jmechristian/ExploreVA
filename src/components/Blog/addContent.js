@@ -132,7 +132,7 @@ const AddContent = props => {
             onChange={e => setContent(e.target.value)}
           />
         </div>
-        <div className="flex justify-between mb-6 w-3/4">
+        <div className="flex justify-between mb-6 w-3/4 flex-col md:flex-row md:items-center md:flex-wrap">
           <FileUploader
             accept="image/*"
             name="image-uploader-multiple"
@@ -144,7 +144,7 @@ const AddContent = props => {
             onProgress={handleProgress.bind(this)}
             multiple
           />
-          <div>
+          <div className="my-4">
             <button
               type="submit"
               disabled={!location.trim() || !title.trim() || !content.trim()}
@@ -156,9 +156,9 @@ const AddContent = props => {
               <FontAwesomeIcon icon={faTimesCircle} size="lg" />
             </button>
           </div>
+          <p>Progress: {uploadProgress}</p>
         </div>
       </form>
-      <p>Progress: {uploadProgress}</p>
     </div>
   );
 };
