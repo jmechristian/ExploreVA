@@ -1,14 +1,17 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { useMediaQuery } from 'react-responsive';
 
 const NoContent = () => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
   return (
-    <div className="flex flex-col items-center text-center my-4">
+    <div className="flex flex-col items-center text-center my-8">
       <div className="flex mb-6">
         <FontAwesomeIcon
           icon={faMapMarkerAlt}
-          size="6x"
+          size={isMobile ? '4x' : '6x'}
           className="font-color-secondary"
         />
       </div>
