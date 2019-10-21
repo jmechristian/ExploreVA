@@ -20,7 +20,7 @@ const BlogDisplay = () => {
   return (
     <div className="flex flex-col w-full lg:w-1/3 bg-primary items-center">
       <div className="flex w-full bg-primary h-full bg-image">
-        <div className="text-white flex-1  self-center">{BlogContent}</div>
+        <div className="text-white w-full">{BlogContent}</div>
       </div>
     </div>
   );

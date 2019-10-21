@@ -39,7 +39,7 @@ const Blog = () => {
         <Header />
       </div>
       <div className="flex w-full bg-primary h-full bg-image">
-        <div className="text-white flex-1  self-center">{BlogContent}</div>
+        <div className="text-white w-full">{BlogContent}</div>
       </div>
     </div>
   );

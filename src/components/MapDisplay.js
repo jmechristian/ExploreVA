@@ -6,15 +6,14 @@ import { faHome, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import PinContext from '../PinContext';
 import { db } from '../firebase';
 
-const INITIAL_VIEWPORT = {
-  latitude: 38.739702160746965,
-  longitude: -77.63519381402206,
-  bearing: 4.539007092198582,
-  pitch: 46.28088218000663,
-  zoom: 8.5
-};
-
 const MapDisplay = () => {
+  const INITIAL_VIEWPORT = {
+    latitude: 38.739702160746965,
+    longitude: -77.63519381402206,
+    bearing: 4.539007092198582,
+    pitch: 46.28088218000663
+  };
+
   const { state, dispatch } = useContext(PinContext);
   //   const { currentUser } = useContext(AuthContext);
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
@@ -66,6 +65,7 @@ const MapDisplay = () => {
         mapboxApiAccessToken="pk.eyJ1Ijoiam1lY2hyaXN0aWFuIiwiYSI6ImNrMWljamw4bDBqcGEzbm55Ynd2ZXl2cjgifQ.Ri325k-o8GPgudwW6o2NHw"
         onViewportChange={newViewport => setViewport(newViewport)}
         {...viewport}
+        zoom={isMobile ? 6.5 : 8.5}
       >
         <Marker
           latitude={38.8418972}
