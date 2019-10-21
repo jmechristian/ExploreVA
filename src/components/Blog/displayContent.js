@@ -78,7 +78,7 @@ const DisplayContent = props => {
           <div className="text-white font-secondary">{currentPin.content}</div>
         </div>
         <div className="flex flex-wrap justify-between w-3/4">
-          <div className="mb-6">
+          <div className="mb-6 overflow-hidden">
             <Gallery currentPin={currentPin} />
           </div>
         </div>

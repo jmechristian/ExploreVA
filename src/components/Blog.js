@@ -38,7 +38,7 @@ const Blog = () => {
       <div className="flex w-full mx-8">
         <Header />
       </div>
-      <div className="flex w-full bg-primary h-full">
+      <div className="flex w-full bg-primary h-full bg-image">
         <div className="text-white flex-1  self-center">{BlogContent}</div>
       </div>
     </div>

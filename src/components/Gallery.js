@@ -7,7 +7,11 @@ const Gallery = props => {
       <Carousel infiniteLoop autoPlay dynamicHeight>
         {props.currentPin.image.map(img => (
           <div key={props.currentPin.id}>
-            <img src={img} alt={props.currentPin.image} />
+            <img
+              src={img}
+              alt={props.currentPin.image}
+              className="object-cover w-full"
+            />
           </div>
         ))}
       </Carousel>

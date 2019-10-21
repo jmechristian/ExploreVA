@@ -36,3 +36,8 @@ html {
 .h-50 {
   height: 50vh;
 }
+
+.bg-image {
+  background-image: url('./images/background.png');
+  background-size: cover;
+}
