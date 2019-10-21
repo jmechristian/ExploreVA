@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import {
   faCheckCircle,
   faTimesCircle
@@ -13,32 +12,19 @@ const EditContent = props => {
   const [newTitle, setNewTitle] = useState('');
   const [newLocation, setNewLocation] = useState('');
   const [newContent, setNewContent] = useState('');
-  const [image, setImage] = useState('');
-
-  const handleImageUpload = async () => {
-    const data = new FormData();
-    data.append('file', image);
-    data.append('upload_preset', 'exploreVA');
-    data.append('cloud_name', 'jmechristian');
-    const res = await axios.post(
-      'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
-      data
-    );
-    return res.data.secure_url;
-  };
 
   const handleSubmit = async event => {
     try {
       event.preventDefault();
-      const url = await handleImageUpload();
+      // const url = await handleImageUpload();
       const { latitude, longitude } = state.currentPin;
       const title = !newTitle ? state.currentPin.title : newTitle;
       const location = !newLocation ? state.currentPin.location : newLocation;
       const content = !newContent ? state.currentPin.content : newContent;
+
       const pinData = {
         title,
         location,
-        image: url,
         content,
         latitude,
         longitude
@@ -48,7 +34,7 @@ const EditContent = props => {
         .doc(`${props.user.uid}`)
         .collection('pins')
         .doc(`${state.currentPin.id}`)
-        .set(pinData);
+        .update(pinData);
       dispatch({ type: 'UPDATE_PIN' });
     } catch (err) {
       console.error(err);
@@ -116,30 +102,13 @@ const EditContent = props => {
             onChange={e => setNewContent(e.target.value)}
           />
         </div>
-        <div className="flex justify-between mb-6 w-3/4">
-          <div className="w-1/2">
-            <input
-              type="file"
-              accept="image/*"
-              id="image"
-              onChange={e => setImage(e.target.files[0])}
-              multiple
-            />
-          </div>
-          <div>
+        <div className="flex justify-between mb-6 w-3/4 flex-col md:flex-row md:items-center md:flex-wrap">
+          <div className="my-4">
             <button type="submit" onClick={handleSubmit}>
-              <FontAwesomeIcon
-                icon={faCheckCircle}
-                size="lg"
-                className="font-color-tertiary"
-              />
+              <FontAwesomeIcon icon={faCheckCircle} size="lg" />
             </button>
             <button className="ml-4" onClick={handleCancelEdit}>
-              <FontAwesomeIcon
-                icon={faTimesCircle}
-                size="lg"
-                className="font-color-tertiary"
-              />
+              <FontAwesomeIcon icon={faTimesCircle} size="lg" />
             </button>
           </div>
         </div>
