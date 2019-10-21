@@ -11,7 +11,8 @@ const MapDisplay = () => {
     latitude: 38.739702160746965,
     longitude: -77.63519381402206,
     bearing: 4.539007092198582,
-    pitch: 46.28088218000663
+    pitch: 46.28088218000663,
+    zoom: 8
   };
 
   const { state, dispatch } = useContext(PinContext);
@@ -65,7 +66,6 @@ const MapDisplay = () => {
         mapboxApiAccessToken="pk.eyJ1Ijoiam1lY2hyaXN0aWFuIiwiYSI6ImNrMWljamw4bDBqcGEzbm55Ynd2ZXl2cjgifQ.Ri325k-o8GPgudwW6o2NHw"
         onViewportChange={newViewport => setViewport(newViewport)}
         {...viewport}
-        zoom={isMobile ? 6.5 : 8.5}
       >
         <Marker
           latitude={38.8418972}
