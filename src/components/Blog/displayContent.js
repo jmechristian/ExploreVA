@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { db } from '../../firebase';
 import { AuthContext } from '../../Auth';
+import Gallery from '../Gallery';
 
 const DisplayContent = props => {
   const { state, dispatch } = useContext(PinContext);
@@ -79,12 +80,7 @@ const DisplayContent = props => {
         </div>
         <div className="flex flex-wrap justify-between w-3/4">
           <div className="mb-6">
-            {currentPin.image.map(img => (
-              <div key={img.url}>
-                <img src={img.url} alt="img" />
-              </div>
-            ))}
-            {/* <img src={currentPin.image} alt="your mom" /> */}
+            <Gallery currentPin={currentPin} />
           </div>
         </div>
         <div className="flex justify-end w-3/4 mb-8">{editContent}</div>

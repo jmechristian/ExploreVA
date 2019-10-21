@@ -1,74 +1,37 @@
 import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import {
   faCheckCircle,
   faTimesCircle
 } from '@fortawesome/free-solid-svg-icons';
 import PinContext from '../../PinContext';
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
+import FileUploader from 'react-firebase-file-uploader';
 
 const AddContent = props => {
   const { state, dispatch } = useContext(PinContext);
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [content, setContent] = useState('');
-  const [image, setImage] = useState('');
-  // const [secureURL, setSecureURL] = useState('');
+  const [downloadUrl, setDownloadUrl] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const handleDeleteDraft = () => {
     setTitle('');
     setLocation('');
     setContent('');
-    setImage('');
+    setDownloadUrl('');
     dispatch({ type: 'DELETE_DRAFT' });
   };
-
-  const handleImageUpload = async () => {
-    // event.preventDefault();
-    let newArray = [];
-    image.map(async fle => {
-      const data = new FormData();
-      data.append('file', fle);
-      data.append('upload_preset', 'exploreVA');
-      data.append('cloud_name', 'jmechristian');
-
-      const upload = await axios.post(
-        'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
-        data
-      );
-
-      const urls = await upload.data.secure_url;
-      console.log(urls);
-      newArray.push({ url: urls });
-    });
-    return newArray;
-  };
-
-  // const handleImageUpload = async () => {
-  //   const data = new FormData();
-  //   // for (var x = 0; x < image.length; x++) {
-  //   //   data.append('file', image[x]);
-  //   // }
-  //   data.append('file', image);
-  //   data.append('upload_preset', 'exploreVA');
-  //   data.append('cloud_name', 'jmechristian');
-  //   const res = await axios.post(
-  //     'https://api.cloudinary.com/v1_1/jmechristian/image/upload',
-  //     data
-  //   );
-  //   return res.data.secure_url;
-  // };
 
   const handleSubmit = async event => {
     try {
       event.preventDefault();
-      const updatedUrls = await handleImageUpload();
-      console.log(state.secureUrls);
       const { latitude, longitude } = state.draft;
       const pinData = {
         title,
-        image: FieldValue.arrayUnion(updatedUrls),
+        image: downloadUrl,
         location,
         content,
         latitude,
@@ -85,6 +48,31 @@ const AddContent = props => {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const handleUploadStart = () => {
+    setIsUploading(true);
+    setUploadProgress(0);
+  };
+
+  const handleProgress = progress => {
+    setUploadProgress(progress);
+  };
+
+  const handleUploadError = error => {
+    setIsUploading(false);
+    console.error(error);
+  };
+
+  const handleUploadSuccess = async filename => {
+    const downloadURL = await storage
+      .ref(`${title}`)
+      .child(filename)
+      .getDownloadURL();
+
+    setDownloadUrl(prevState => {
+      return [...prevState, downloadURL];
+    });
   };
 
   return (
@@ -145,25 +133,21 @@ const AddContent = props => {
           />
         </div>
         <div className="flex justify-between mb-6 w-3/4">
-          <div className="w-1/2">
-            <input
-              type="file"
-              accept="image/*"
-              id="image"
-              onChange={event => setImage([...image, ...event.target.files])}
-              multiple
-            />
-          </div>
+          <FileUploader
+            accept="image/*"
+            name="image-uploader-multiple"
+            randomizeFilename
+            storageRef={storage.ref(`${title}`)}
+            onUploadStart={handleUploadStart.bind(this)}
+            onUploadError={handleUploadError.bind(this)}
+            onUploadSuccess={handleUploadSuccess.bind(this)}
+            onProgress={handleProgress.bind(this)}
+            multiple
+          />
           <div>
             <button
               type="submit"
-              // disabled={
-              //   !location.trim() ||
-              //   !title.trim() ||
-              //   !content.trim() ||
-              //   !image ||
-              //   submitting
-              // }
+              disabled={!location.trim() || !title.trim() || !content.trim()}
               onClick={handleSubmit}
             >
               <FontAwesomeIcon icon={faCheckCircle} size="lg" />
@@ -174,6 +158,7 @@ const AddContent = props => {
           </div>
         </div>
       </form>
+      <p>Progress: {uploadProgress}</p>
     </div>
   );
 };
