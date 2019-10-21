@@ -1,6 +1,6 @@
 import React, { useContext, useReducer } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import './index.css';
