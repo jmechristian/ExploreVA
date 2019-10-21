@@ -20,9 +20,7 @@ const Root = () => {
     <AuthProvider>
       <PinContext.Provider value={{ state, dispatch }}>
         <Router>
-          <Switch>
-            <Route exact path="/" component={AppDisplay} />
-          </Switch>
+          <Route exact path="/" component={AppDisplay} />
           <Switch>
             <PrivateRoute exact path="/app" component={App} />
           </Switch>
