@@ -4,7 +4,7 @@ import { Carousel } from 'react-responsive-carousel';
 const Gallery = props => {
   return (
     <div>
-      <Carousel infiniteLoop autoPlay dynamicHeight>
+      <Carousel dynamicHeight>
         {props.currentPin.image.map(img => (
           <div key={props.currentPin.id}>
             <img
