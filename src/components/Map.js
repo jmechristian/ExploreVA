@@ -18,7 +18,7 @@ const Map = () => {
     longitude: -77.63519381402206,
     bearing: 4.539007092198582,
     pitch: 46.28088218000663,
-    zoom: 8.5
+    zoom: 6.5
   };
 
   const { state, dispatch } = useContext(PinContext);
