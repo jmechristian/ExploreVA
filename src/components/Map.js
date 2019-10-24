@@ -22,7 +22,6 @@ const Map = () => {
   };
 
   const { state, dispatch } = useContext(PinContext);
-  const { currentUser } = useContext(AuthContext);
   const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
   const [userPosition, setUserPosition] = useState(null);
 
@@ -55,7 +54,7 @@ const Map = () => {
 
   const ref = db
     .collection('users')
-    .doc(`${currentUser.uid}`)
+    .doc('Y9XHDpvoOpUAdhAb2Bzqox59rKB2')
     .collection('pins');
 
   useEffect(() => {

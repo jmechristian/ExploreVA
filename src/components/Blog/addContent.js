@@ -39,7 +39,7 @@ const AddContent = props => {
       };
       await db
         .collection('users')
-        .doc(`${props.user.uid}`)
+        .doc('Y9XHDpvoOpUAdhAb2Bzqox59rKB2')
         .collection('pins')
         .doc()
         .set(pinData);
