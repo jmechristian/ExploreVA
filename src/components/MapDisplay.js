@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import ReactMapGL, { Marker, GeolocateControl } from 'react-map-gl';
+import ReactMapGL, { Marker } from 'react-map-gl';
 import { useMediaQuery } from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
