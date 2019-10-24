@@ -33,7 +33,8 @@ const Map = () => {
     zIndex: 100,
     backgroundColor: 'white',
     borderRadius: '100%',
-    boxShadow: '3px 5px 5px rgba(0, 0, 0, .2)'
+    boxShadow: '3px 5px 5px rgba(0, 0, 0, .2)',
+    cursor: 'pointer'
   };
 
   const getUserPosition = () => {
